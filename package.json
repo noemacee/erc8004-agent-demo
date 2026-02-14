@@ -6,7 +6,10 @@
   "scripts": {
     "test": "hardhat test",
     "deploy": "hardhat run scripts/deploy.js",
-    "agent": "node agent/agent-server.js"
+    "agent": "node agent/agent-server.js",
+    "frontend": "npm run dev --prefix frontend",
+    "frontend:build": "npm run build --prefix frontend",
+    "frontend:preview": "npm run preview --prefix frontend"
   },
   "keywords": ["erc8004", "ai-agent", "ethereum", "reputation"],
   "author": "",

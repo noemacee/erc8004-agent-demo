@@ -18,15 +18,26 @@ erc8004-agent-demo/
 │   ├── IdentityRegistry.sol
 │   ├── ReputationRegistry.sol
 │   └── ValidationRegistry.sol
-├── scripts/           # Deployment and interaction scripts
+├── frontend/           # React + TypeScript + Vite dashboard
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── contracts/      # Contract ABIs and factories
+│   │   ├── context/        # Web3 context provider
+│   │   ├── hooks/          # Custom React hooks
+│   │   ├── styles/         # CSS styles
+│   │   └── types/          # TypeScript types
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── vite.config.ts
+├── scripts/            # Deployment and interaction scripts
 │   ├── deploy.js
 │   ├── register-agent.js
 │   ├── give-feedback.js
 │   └── validate.js
-├── agent/            # Sample AI agent implementation
+├── agent/              # Sample AI agent implementation
 │   ├── agent-server.js
 │   └── registration.json
-├── test/             # Contract tests
+├── test/               # Contract tests
 └── hardhat.config.js
 ```
 
@@ -42,6 +53,7 @@ erc8004-agent-demo/
 1. Install dependencies:
 ```bash
 npm install
+cd frontend && npm install && cd ..
 ```
 
 2. Set up environment variables:
@@ -64,6 +76,78 @@ npx hardhat run scripts/register-agent.js --network sepolia
 ```bash
 npx hardhat run scripts/give-feedback.js --network sepolia
 ```
+
+## Frontend Dashboard
+
+The project includes a React + TypeScript web-based dashboard to interact with all three registries.
+
+### Starting the Frontend
+
+```bash
+npm run frontend
+```
+
+This will start the Vite development server at http://localhost:5173
+
+### Building for Production
+
+```bash
+npm run frontend:build
+```
+
+Build output will be in `frontend/dist/`.
+
+### Previewing Production Build
+
+```bash
+npm run frontend:preview
+```
+
+### Features
+
+The dashboard provides three main tabs:
+
+#### 1. Identities Tab
+- View all registered agents on the Identity Registry
+- See agent owner addresses
+- View agent wallet addresses
+- Display agent URIs (pointing to registration files)
+
+#### 2. Feedback Tab
+- Select any registered agent to view their feedback history
+- See all feedback entries with values, tags, and client addresses
+- Positive feedback shown in green, negative in red
+- Revoked feedback is visually dimmed
+
+#### 3. Give Feedback Tab
+- Submit feedback to any agent
+- Set feedback value (-100 to +100)
+- Add optional tags for categorization
+- Include endpoint being rated
+- Link to off-chain feedback URI (IPFS or HTTP)
+
+### How to Use
+
+1. **Connect Wallet**: Click "Connect Wallet" and approve in MetaMask
+2. **Enter Contract Addresses**: Copy addresses from `deployment-info.json` after deploying
+   - The addresses are saved in localStorage for convenience
+3. **Browse & Interact**: Use the tabs to view agents and submit feedback
+
+### Contract Address Configuration
+
+After deploying contracts with `npm run deploy`, find the addresses in `deployment-info.json`:
+
+```json
+{
+  "contracts": {
+    "identityRegistry": "0x...",
+    "reputationRegistry": "0x...",
+    "validationRegistry": "0x..."
+  }
+}
+```
+
+Copy these into the corresponding fields in the frontend's configuration section.
 
 ## Key Concepts
 

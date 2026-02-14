@@ -1,0 +1,1 @@
+export { ContractConfig } from './ContractConfig'
