@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { Agent } from '../types/contracts'
 import { IdentityRegistryContract } from '../contracts'
-import { Contract } from 'ethers'
+import { Contract, JsonRpcProvider } from 'ethers'
 
 interface UseIdentitiesReturn {
   agents: Agent[]
@@ -38,12 +38,12 @@ export function useIdentities(contract: IdentityRegistryContract | null): UseIde
           // Try to get more info about the error
           const contractInstance = contract as unknown as Contract
           const address = contractInstance.target
-          const provider = contractInstance.provider
-          
+          const runner = contractInstance.runner
+
           let errorMsg = 'Contract not found at this address. '
-          if (provider) {
+          if (runner && 'provider' in runner && runner.provider) {
             try {
-              const code = await provider.getCode(address as string)
+              const code = await (runner.provider as JsonRpcProvider).getCode(address as string)
               if (code === '0x' || code.length <= 2) {
                 errorMsg += 'No contract code found at this address. '
               }

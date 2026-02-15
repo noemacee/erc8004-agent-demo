@@ -1,6 +1,6 @@
 import React from 'react'
 
-export type TabId = 'identities' | 'feedback' | 'give-feedback'
+export type TabId = 'identities' | 'deploy-agent' | 'feedback' | 'give-feedback'
 
 interface TabsProps {
   activeTab: TabId
@@ -8,7 +8,8 @@ interface TabsProps {
 }
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: 'identities', label: 'Identities' },
+  { id: 'identities', label: 'Agents' },
+  { id: 'deploy-agent', label: 'Deploy' },
   { id: 'feedback', label: 'Feedback' },
   { id: 'give-feedback', label: 'Give Feedback' }
 ]

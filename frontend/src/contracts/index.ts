@@ -3,12 +3,22 @@ import { IDENTITY_REGISTRY_ABI } from './abis/IdentityRegistry'
 import { REPUTATION_REGISTRY_ABI } from './abis/ReputationRegistry'
 import { VALIDATION_REGISTRY_ABI } from './abis/ValidationRegistry'
 
+export interface MetadataEntry {
+  metadataKey: string
+  metadataValue: string
+}
+
 export interface IdentityRegistryContract {
   getNextAgentId(): Promise<bigint>
   ownerOf(tokenId: bigint | number): Promise<string>
   tokenURI(tokenId: bigint | number): Promise<string>
   getAgentWallet(agentId: bigint | number): Promise<string>
   getMetadata(agentId: bigint | number, metadataKey: string): Promise<string>
+  'register()': () => Promise<ContractTransactionResponse>
+  'register(string,(string,bytes)[])': (
+    agentURI: string,
+    metadata: MetadataEntry[]
+  ) => Promise<ContractTransactionResponse>
 }
 
 export interface ReputationRegistryContract {

@@ -26,7 +26,7 @@ export function ContractConfig() {
         Contract addresses are automatically loaded from deployment-info.json
       </p>
       
-      {isConnected && !isCorrectNetwork && expectedChainId && (
+      {isConnected && !isCorrectNetwork && expectedChainId !== null && (
         <Message variant="warning" style={{ marginBottom: '15px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>
